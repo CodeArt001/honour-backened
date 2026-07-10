@@ -25,4 +25,12 @@ public class StudentRepository {
                 .findFirst()
                 .orElseThrow();
     }
+
+    public void deleteStudentById(int id){
+        Student student = students.stream()
+                .filter(x -> x.getId() == id)
+                .findFirst()
+                .orElseThrow();
+        students.remove(student);
+    }
 }

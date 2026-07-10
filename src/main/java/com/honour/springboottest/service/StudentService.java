@@ -27,9 +27,6 @@ public class StudentService {
     }
 
     public List<Student> getAllStudent(){
-        if (studentRepository.getAllStudents().isEmpty()){
-            throw new RuntimeException("No student yet");
-        }
         
         return studentRepository.getAllStudents();
     }
@@ -40,8 +37,25 @@ public class StudentService {
     }
 
     return studentRepository.getStudentById(id);
+    }
+
+    public String updateStudentById(int id, Student student){
+        Student existingStudent = studentRepository.getStudentById(id);
+        if (existingStudent == null) {
+            throw new RuntimeException("Student with id " + id + " is not found");
+            
+        }
+
+        existingStudent.setId(student.getId());
+        existingStudent.setName(student.getName());
+        existingStudent.setLevel(student.getLevel());
 
 
+        return "Updated Student Succesfully";
 
+    }
+
+    public void deleteStudentById(int id){
+        studentRepository.deleteStudentById(id);
     }
 }
